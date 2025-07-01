@@ -1,6 +1,7 @@
 import React from 'react';
 
 const games = [
+  { name: 'Trivia Game', path: '/trivia-game' },
   { name: 'Tic Tac Toe', path: '/tic-tac-toe' },
   { name: 'Memory Game', path: '/memory-game' },
   { name: 'Snake', path: '/snake' },
