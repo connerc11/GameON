@@ -1,12 +1,10 @@
 import React from 'react';
 
 const games = [
-  { name: 'Sports Trivia Game', path: '/trivia-game' },
-  { name: 'TV Trivia', path: '/tvtrivia' },
+  { name: 'Trivia Game', path: '/trivia-game' },
   { name: 'Tic Tac Toe', path: '/tic-tac-toe' },
   { name: 'Memory Game', path: '/memory-game' },
   { name: 'Snake', path: '/snake' },
-  { name: 'Fun Fight', path: '/funfight' }, // Added Fun Fight to the list
   // Add more games here
 ];
 
@@ -24,7 +22,6 @@ export default function HomePage() {
           </li>
         ))}
       </ul>
-      {/* Removed Go to Homepage button from HomePage */}
     </div>
   );
 }

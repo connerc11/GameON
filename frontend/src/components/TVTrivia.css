@@ -1,0 +1,202 @@
+/* TV Trivia Themed Styles */
+.tvtrivia-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf6e3 0%, #f5e6c8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.tvtrivia-card, .tvtrivia-results-card {
+  background: #fffbe6;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(230, 126, 34, 0.12);
+  padding: 36px 32px 32px 32px;
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 40px;
+  text-align: center;
+  border: 2px solid #e67e22;
+}
+
+.tvtrivia-title {
+  color: #e67e22;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  font-family: 'Arial Black', Arial, sans-serif;
+  letter-spacing: 2px;
+}
+
+.tvtrivia-progress {
+  color: #b9770e;
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+.tvtrivia-question {
+  font-size: 1.3rem;
+  margin-bottom: 28px;
+  color: #222;
+  font-weight: 500;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.tvtrivia-answers {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 28px;
+}
+
+.tvtrivia-answer-item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.tvtrivia-radio {
+  accent-color: #e67e22;
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+}
+
+.tvtrivia-label {
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s;
+}
+
+.tvtrivia-label:hover {
+  color: #e67e22;
+}
+
+.tvtrivia-next-btn, .tvtrivia-restart-btn {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 36px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.tvtrivia-next-btn:disabled {
+  background: #f5cba7;
+  cursor: not-allowed;
+}
+
+.tvtrivia-next-btn:hover:not(:disabled), .tvtrivia-restart-btn:hover {
+  background: #b9770e;
+}
+
+.tvtrivia-home-btn {
+  position: absolute;
+  left: 32px;
+  top: 32px;
+  background: #fff;
+  color: #e67e22;
+  border: 2px solid #e67e22;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(230, 126, 34, 0.08);
+  transition: background 0.2s, color 0.2s;
+  z-index: 10;
+}
+
+.tvtrivia-home-btn:hover {
+  background: #e67e22;
+  color: #fff;
+}
+
+.tvtrivia-loading, .tvtrivia-error {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 1.3rem;
+  color: #e74c3c;
+}
+
+.tvtrivia-results-list {
+  text-align: left;
+  margin-top: 32px;
+}
+
+.tvtrivia-result-item {
+  margin-bottom: 24px;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 8px rgba(230, 126, 34, 0.06);
+}
+
+.tvtrivia-score {
+  color: #e67e22;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 700px) {
+  .tvtrivia-card, .tvtrivia-results-card {
+    max-width: 98vw;
+    padding: 18px 6vw 18px 6vw;
+  }
+  .tvtrivia-container {
+    padding-top: 16px;
+  }
+  .tvtrivia-title {
+    font-size: 1.5rem;
+  }
+  .tvtrivia-progress {
+    font-size: 1rem;
+  }
+  .tvtrivia-question {
+    font-size: 1.05rem;
+  }
+  .tvtrivia-label {
+    font-size: 1rem;
+  }
+  .tvtrivia-next-btn, .tvtrivia-restart-btn {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+  .tvtrivia-home-btn {
+    left: 10px;
+    top: 10px;
+    font-size: 1rem;
+    padding: 7px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tvtrivia-card, .tvtrivia-results-card {
+    padding: 10px 2vw 10px 2vw;
+  }
+  .tvtrivia-title {
+    font-size: 1.1rem;
+  }
+  .tvtrivia-progress {
+    font-size: 0.95rem;
+  }
+  .tvtrivia-question {
+    font-size: 0.95rem;
+  }
+  .tvtrivia-label {
+    font-size: 0.95rem;
+  }
+  .tvtrivia-next-btn, .tvtrivia-restart-btn {
+    font-size: 0.95rem;
+    padding: 8px 10px;
+  }
+  .tvtrivia-home-btn {
+    font-size: 0.95rem;
+    padding: 6px 8px;
+  }
+}
