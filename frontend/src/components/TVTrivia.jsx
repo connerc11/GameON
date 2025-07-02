@@ -26,7 +26,7 @@ export default function TVTrivia() {
   }, [navigate]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/tvtrivia')
+    fetch('/api/tvtrivia')
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data.results || []);
@@ -94,42 +94,21 @@ export default function TVTrivia() {
   if (error) return <div className="tvtrivia-error">{error}</div>;
   if (!questions.length) return <div className="tvtrivia-error">No questions found.</div>;
 
+  // After finishing the game, show a button to go to the leaderboard page
   if (showResults) {
     return (
       <div className="tvtrivia-container">
         <button className="tvtrivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
-        <div className="tvtrivia-results-card">
-          <h1>📺 TV Trivia Results</h1>
-          <h2>Your Score: <span className="tvtrivia-score">{score} / {questions.length}</span></h2>
-          {(!nonRankedMode && isSignedIn && leaderboard.length > 0) ? (
-            <div className="tvtrivia-leaderboard">
-              <h3>Leaderboard</h3>
-              <ol>
-                {leaderboard.map((entry, idx) => (
-                  <li key={entry._id || idx}>
-                    {entry.username}: {entry.score}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ) : null}
-          <button className="tvtrivia-restart-btn" onClick={handleRestart}>Restart</button>
-          <ol className="tvtrivia-results-list">
-            {questions.map((q, idx) => {
-              const isCorrect = selectedAnswers[idx] === q.correct_answer;
-              return (
-                <li key={idx} className="tvtrivia-result-item">
-                  <div dangerouslySetInnerHTML={{ __html: q.question }} />
-                  <div>
-                    Your answer: <span style={{ color: isCorrect ? '#e67e22' : '#e74c3c', fontWeight: 'bold' }} dangerouslySetInnerHTML={{ __html: selectedAnswers[idx] || 'No answer' }} />
-                    {!isCorrect && (
-                      <span> | Correct: <span style={{ color: '#e67e22', fontWeight: 'bold' }} dangerouslySetInnerHTML={{ __html: q.correct_answer }} /></span>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+        <div className="tvtrivia-card">
+          <h1 className="tvtrivia-title">TV Trivia</h1>
+          <h2>Your Score: {score}</h2>
+          <button
+            className="tvtrivia-next-btn"
+            style={{ marginTop: 20, background: '#42b983', color: '#fff', fontWeight: 600 }}
+            onClick={() => navigate('/tvtrivia-leaderboard')}
+          >
+            View Leaderboard
+          </button>
         </div>
       </div>
     );

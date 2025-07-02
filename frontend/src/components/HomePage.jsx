@@ -8,9 +8,10 @@ const rankedGames = [
   { name: 'Fun Fight', path: '/funfight' },
 ];
 const nonRankedGames = [
-  { name: 'Tic Tac Toe', path: '/tic-tac-toe' },
-  { name: 'Memory Game', path: '/memory-game' },
-  { name: 'Snake', path: '/snake' },
+  
+  { name: 'Math Multipliers', path: '/math-multipliers' },
+  { name: 'Quick Reaction', path: '/quick-reaction' },
+  { name: 'Maze Escape', path: '/maze-escape' },
 ];
 
 export default function HomePage() {
@@ -51,50 +52,37 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px', minHeight: '100vh', background: nonRankedMode ? '#fffbe6' : '#fff' }}>
+    <div className={
+      `min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#e0e7ff] to-[#f0fff4] flex flex-col items-center py-10 px-2` +
+      (nonRankedMode ? ' bg-yellow-50' : '')
+    }>
       {nonRankedMode && (
-        <div style={{ background: '#ffe0b2', color: '#b26a00', padding: '16px 0', fontSize: '1.15rem', fontWeight: 500, marginBottom: 24, borderBottom: '2px solid #ffd180' }}>
+        <div className="w-full max-w-2xl rounded-xl shadow-md bg-yellow-100 border border-yellow-200 text-yellow-900 px-6 py-4 mb-8 text-center text-lg font-semibold">
           <span>You are playing in <b>Guest Mode</b>. Leaderboards and score saving are disabled.<br />
-          To play ranked games and see your scores, <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#42b983' }} onClick={() => { sessionStorage.removeItem('nonRankedMode'); navigate('/login'); }}>create an account and sign in</span>.</span>
+          To play ranked games and see your scores, <span className="underline cursor-pointer text-green-600 hover:text-green-700 transition" onClick={() => { sessionStorage.removeItem('nonRankedMode'); navigate('/signup'); }}>create an account and sign up</span>.</span>
         </div>
       )}
-      <h1>GameOn Games</h1>
-      <h2>Ranked Games</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 drop-shadow mb-2">GameOn Games</h1>
+      <h2 className="text-2xl font-bold text-gray-700 mb-4 mt-6">Ranked Games</h2>
+      <ul className="flex flex-wrap justify-center gap-6 mb-8">
         {(isSignedIn && !nonRankedMode ? rankedGames : []).map((game) => (
-          <li key={game.name} style={{ margin: '20px 0' }}>
+          <li key={game.name}>
             <button
               onClick={() => handleGameClick(game.path, true)}
-              style={{
-                fontSize: '1.5rem',
-                textDecoration: 'none',
-                color: '#42b983',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0
-              }}
+              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-green-400 to-blue-400 text-white text-xl font-bold shadow-lg hover:scale-105 hover:from-green-500 hover:to-blue-500 transition-all duration-200"
             >
               {game.name}
             </button>
           </li>
         ))}
       </ul>
-      <h2>Non-Ranked Games</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <h2 className="text-2xl font-bold text-gray-700 mb-4 mt-6">Non-Ranked Games</h2>
+      <ul className="flex flex-wrap justify-center gap-6">
         {nonRankedGames.map((game) => (
-          <li key={game.name} style={{ margin: '20px 0' }}>
+          <li key={game.name}>
             <button
               onClick={() => handleGameClick(game.path, false)}
-              style={{
-                fontSize: '1.5rem',
-                textDecoration: 'none',
-                color: '#888',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: 0
-              }}
+              className="px-8 py-4 rounded-2xl bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 text-xl font-bold shadow hover:scale-105 hover:from-gray-400 hover:to-gray-500 transition-all duration-200"
             >
               {game.name}
             </button>

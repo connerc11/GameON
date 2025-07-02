@@ -24,7 +24,7 @@ export default function TriviaGame() {
   }, [navigate]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/trivia')
+    fetch('/api/trivia')
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data.results || []);
@@ -60,13 +60,13 @@ export default function TriviaGame() {
 
   useEffect(() => {
     if (showResults && isSignedIn && !nonRankedMode && getUsername()) {
-      fetch('http://localhost:5000/api/scores', {
+      fetch('/api/scores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${getToken()}`,
         },
-        body: JSON.stringify({ game: 'triviagame', score })
+        body: JSON.stringify({ game: 'trivia', score })
       });
     }
   }, [showResults]);
@@ -79,27 +79,16 @@ export default function TriviaGame() {
     return (
       <div className="trivia-container">
         <button className="trivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
-        <div className="trivia-results-card">
-          <h1>🎉 Trivia Game Results</h1>
+        <div className="trivia-card">
+          <h1 className="trivia-title">Trivia Game</h1>
           <h2>Your Score: <span className="trivia-score">{score} / {questions.length}</span></h2>
-          {(!nonRankedMode && isSignedIn) ? <Leaderboard game="triviagame" /> : null}
-          <button className="trivia-restart-btn" onClick={handleRestart}>Restart</button>
-          <ol className="trivia-results-list">
-            {questions.map((q, idx) => {
-              const isCorrect = selectedAnswers[idx] === q.correct_answer;
-              return (
-                <li key={idx} className="trivia-result-item">
-                  <div dangerouslySetInnerHTML={{ __html: q.question }} />
-                  <div>
-                    Your answer: <span style={{ color: isCorrect ? '#42b983' : '#e74c3c', fontWeight: 'bold' }} dangerouslySetInnerHTML={{ __html: selectedAnswers[idx] || 'No answer' }} />
-                    {!isCorrect && (
-                      <span> | Correct: <span style={{ color: '#42b983', fontWeight: 'bold' }} dangerouslySetInnerHTML={{ __html: q.correct_answer }} /></span>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+          <button
+            className="trivia-next-btn"
+            style={{ marginTop: 20, background: '#42b983', color: '#fff', fontWeight: 600 }}
+            onClick={() => navigate('/triviagame-leaderboard')}
+          >
+            View Leaderboard
+          </button>
         </div>
       </div>
     );

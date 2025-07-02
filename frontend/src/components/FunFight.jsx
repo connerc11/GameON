@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './css/FunFight.css';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
-import Leaderboard from './Leaderboard';
 
 const OPPONENT_NAMES = [
   'The Crusher', 'Shadow Ninja', 'Thunderbolt', 'Iron Fist', 'Blaze', 'Venom', 'The Phantom', 'Wildcat',
@@ -377,7 +376,12 @@ export default function FunFight() {
       >
         Go to Homepage
       </button>
-      {(!nonRankedMode && isSignedIn) && <Leaderboard game="funfight" />}
+      <button
+        onClick={() => window.location.href = '/funfight-leaderboard'}
+        style={{ marginTop: '10px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
+      >
+        View Fun Fight Leaderboard
+      </button>
     </div>
   );
 }

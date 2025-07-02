@@ -46,4 +46,25 @@ router.get('/:game', authMiddleware, async (req, res) => {
   }
 });
 
+// Get FunFight user stats: wins, losses, highest remaining health win
+router.get('/funfight/userstats', authMiddleware, async (req, res) => {
+  try {
+    const username = req.user.username;
+    // Wins: scores where user won (score > 0), Losses: scores where user lost (score === 0)
+    const wins = await Score.countDocuments({ game: 'funfight', username, score: { $gt: 0 } });
+    const losses = await Score.countDocuments({ game: 'funfight', username, score: 0 });
+    // Highest remaining health win
+    const highest = await Score.findOne({ game: 'funfight', username, score: { $gt: 0 } })
+      .sort({ score: -1 })
+      .select('score');
+    res.json({
+      wins,
+      losses,
+      highestHealth: highest ? highest.score : 0
+    });
+  } catch (e) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

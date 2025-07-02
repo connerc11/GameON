@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getToken } from '../utils/auth'; 
 
 
-export default function Leaderboard({ game }) {
+export default function Leaderboard({ game, limit = 10 }) {
   const [scores, setScores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -24,7 +24,7 @@ export default function Leaderboard({ game }) {
         });
         if (res.ok) {
           const data = await res.json();
-          setScores(data);
+          setScores(data.slice(0, limit));
           setError('');
         } else if (res.status === 401) {
           setError('Unauthorized. Please sign in.');
@@ -40,7 +40,7 @@ export default function Leaderboard({ game }) {
       setLoading(false);
     }
     fetchLeaderboard();
-  }, [game]);
+  }, [game, limit]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
