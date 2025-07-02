@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
 import './css/FunFight.css';
+import { useNavigate } from 'react-router-dom';
+import { getToken } from '../utils/auth';
+import Leaderboard from './Leaderboard';
 
 const OPPONENT_NAMES = [
-  'The Crusher',
-  'Shadow Ninja',
-  'Thunderbolt',
-  'Iron Fist',
-  'Blaze',
-  'Venom',
-  'The Phantom',
-  'Wildcat',
-  'Storm Bringer',
-  'Nightmare',
-  'Frostbite',
-  'Viper',
-  'The Titan',
-  'Rogue',
-  'The Warden',
+  'The Crusher', 'Shadow Ninja', 'Thunderbolt', 'Iron Fist', 'Blaze', 'Venom', 'The Phantom', 'Wildcat',
+  'Storm Bringer', 'Nightmare', 'Frostbite', 'Viper', 'The Titan', 'Rogue', 'The Warden',
 ];
 const PLAYER_IMAGES = [
   'https://api.dicebear.com/7.x/adventurer/svg?seed=player',
@@ -48,24 +38,22 @@ function getRandomOpponent() {
 function getRandomImg(imgArr) {
   return imgArr[Math.floor(Math.random() * imgArr.length)];
 }
-
-// Helper for AI battle log flavor
 function getBattleLogMessage(type, { player, opponent, value, buffed, defending }) {
   const attackMsgs = [
     `${player} unleashes a fierce strike on ${opponent}, dealing ${value} damage${buffed ? ' with extra power!' : '!'}`,
     `${player} attacks! ${opponent} takes ${value} damage${buffed ? ' (it hurts more!)' : '!'}`,
     `${player} lands a blow for ${value} damage${buffed ? ' (critical hit!)' : '!'}`,
-    `${player} swings at ${opponent}, causing ${value} damage${buffed ? ' (super effective!)' : '!'}`
+    `${player} swings at ${opponent}, causing ${value} damage${buffed ? ' (super effective!)' : '!'}`,
   ];
   const defendMsgs = [
     `${player} braces for impact! Next attack will be stronger.`,
     `${player} raises their guard, preparing a counterattack!`,
-    `${player} defends, reducing incoming damage and powering up!`
+    `${player} defends, reducing incoming damage and powering up!`,
   ];
   const oppAttackMsgs = [
     `${opponent} retaliates, hitting ${player} for ${value} damage${defending ? ' (but it was reduced!)' : '!'}`,
     `${opponent} launches an attack! ${player} suffers ${value} damage${defending ? ' (defended)' : '!'}`,
-    `${opponent} strikes back, inflicting ${value} damage${defending ? ' (defense absorbed some)' : '!'}`
+    `${opponent} strikes back, inflicting ${value} damage${defending ? ' (defense absorbed some)' : '!'}`,
   ];
   if (type === 'playerAttack') return attackMsgs[Math.floor(Math.random() * attackMsgs.length)];
   if (type === 'playerDefend') return defendMsgs[Math.floor(Math.random() * defendMsgs.length)];
@@ -91,6 +79,34 @@ export default function FunFight() {
   const [selectedAvatar, setSelectedAvatar] = useState(PLAYER_IMAGES[0]);
   const [specialUsed, setSpecialUsed] = useState(false);
   const [nameError, setNameError] = useState('');
+  const navigate = useNavigate();
+
+  // Require login before playing
+  if (!getToken()) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: 60 }}>
+        <h2>You must be signed in to play FunFight!</h2>
+        <button
+          onClick={() => navigate('/login')}
+          style={{
+            padding: '12px 32px',
+            fontSize: 20,
+            background: '#42b983',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 8,
+            cursor: 'pointer',
+            marginTop: 20,
+          }}
+        >
+          Sign In / Sign Up
+        </button>
+      </div>
+    );
+  }
+
+  const nonRankedMode = sessionStorage.getItem('nonRankedMode') === 'true';
+  const isSignedIn = !!getToken();
 
   const handleStartBattle = () => {
     if (!playerName.trim()) {
@@ -361,6 +377,7 @@ export default function FunFight() {
       >
         Go to Homepage
       </button>
+      {(!nonRankedMode && isSignedIn) && <Leaderboard game="funfight" />}
     </div>
   );
 }

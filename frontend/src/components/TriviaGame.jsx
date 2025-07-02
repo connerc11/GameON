@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Leaderboard from './Leaderboard';
+import { getToken, getUsername } from '../utils/auth';
 
 export default function TriviaGame() {
   const [questions, setQuestions] = useState([]);
@@ -11,6 +13,16 @@ export default function TriviaGame() {
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
 
+  const nonRankedMode = sessionStorage.getItem('nonRankedMode') === 'true';
+  const isSignedIn = !!getToken();
+
+  // Redirect to login if not signed in
+  useEffect(() => {
+    if (!getToken()) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   useEffect(() => {
     fetch('http://localhost:3001/api/trivia')
       .then((res) => res.json())
@@ -18,7 +30,7 @@ export default function TriviaGame() {
         setQuestions(data.results || []);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError('Failed to load trivia questions');
         setLoading(false);
       });
@@ -46,6 +58,19 @@ export default function TriviaGame() {
     setCurrent(0);
   };
 
+  useEffect(() => {
+    if (showResults && isSignedIn && !nonRankedMode && getUsername()) {
+      fetch('http://localhost:5000/api/scores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({ game: 'triviagame', score })
+      });
+    }
+  }, [showResults]);
+
   if (loading) return <div className="trivia-loading">Loading...</div>;
   if (error) return <div className="trivia-error">{error}</div>;
   if (!questions.length) return <div className="trivia-error">No questions found.</div>;
@@ -57,6 +82,7 @@ export default function TriviaGame() {
         <div className="trivia-results-card">
           <h1>🎉 Trivia Game Results</h1>
           <h2>Your Score: <span className="trivia-score">{score} / {questions.length}</span></h2>
+          {(!nonRankedMode && isSignedIn) ? <Leaderboard game="triviagame" /> : null}
           <button className="trivia-restart-btn" onClick={handleRestart}>Restart</button>
           <ol className="trivia-results-list">
             {questions.map((q, idx) => {

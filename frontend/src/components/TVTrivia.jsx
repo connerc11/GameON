@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TVTrivia.css';
+import Leaderboard from './Leaderboard';
+import { getToken, getUsername } from '../utils/auth';
 
 export default function TVTrivia() {
   const [questions, setQuestions] = useState([]);
@@ -10,7 +12,18 @@ export default function TVTrivia() {
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [current, setCurrent] = useState(0);
+  const [leaderboard, setLeaderboard] = useState([]);
   const navigate = useNavigate();
+
+  const nonRankedMode = sessionStorage.getItem('nonRankedMode') === 'true';
+  const isSignedIn = !!getToken();
+
+  // Redirect to login if not signed in
+  useEffect(() => {
+    if (!getToken()) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/tvtrivia')
@@ -19,7 +32,7 @@ export default function TVTrivia() {
         setQuestions(data.results || []);
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setError('Failed to load TV trivia questions');
         setLoading(false);
       });
@@ -45,7 +58,37 @@ export default function TVTrivia() {
     setShowResults(false);
     setScore(0);
     setCurrent(0);
+    setLeaderboard([]);
   };
+
+  // Submit score and update leaderboard
+  async function submitScore(game, score, token) {
+    try {
+      const res = await fetch('http://localhost:5000/api/scores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify({ game, score })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setLeaderboard(data.leaderboard);
+      } else {
+        alert(data.message || 'Error submitting score');
+      }
+    } catch (err) {
+      alert('Error submitting score');
+    }
+  }
+
+  useEffect(() => {
+    if (showResults && isSignedIn && !nonRankedMode && getUsername()) {
+      submitScore('tvtrivia', score, getToken());
+    }
+    // eslint-disable-next-line
+  }, [showResults]);
 
   if (loading) return <div className="tvtrivia-loading">Loading...</div>;
   if (error) return <div className="tvtrivia-error">{error}</div>;
@@ -58,6 +101,18 @@ export default function TVTrivia() {
         <div className="tvtrivia-results-card">
           <h1>📺 TV Trivia Results</h1>
           <h2>Your Score: <span className="tvtrivia-score">{score} / {questions.length}</span></h2>
+          {(!nonRankedMode && isSignedIn && leaderboard.length > 0) ? (
+            <div className="tvtrivia-leaderboard">
+              <h3>Leaderboard</h3>
+              <ol>
+                {leaderboard.map((entry, idx) => (
+                  <li key={entry._id || idx}>
+                    {entry.username}: {entry.score}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
           <button className="tvtrivia-restart-btn" onClick={handleRestart}>Restart</button>
           <ol className="tvtrivia-results-list">
             {questions.map((q, idx) => {
