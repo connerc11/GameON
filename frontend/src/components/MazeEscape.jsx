@@ -72,8 +72,8 @@ export default function MazeEscape() {
   }, [pos, size]);
 
   return (
-    <div className="tvtrivia-container">
-      <div className="tvtrivia-card" style={{ maxWidth: 500, margin: '40px auto', minHeight: 400 }}>
+    <div style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
+      <div style={{ maxWidth: 500, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 24 }}>
         <h1 className="tvtrivia-title">Maze Escape</h1>
         <button
           className="tvtrivia-next-btn"

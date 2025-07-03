@@ -78,9 +78,9 @@ export default function MathMultipliers() {
   };
 
   return (
-    <div className="tvtrivia-container">
-      <div className="tvtrivia-card" style={{ maxWidth: 400, margin: '40px auto' }}>
-        <h1 className="tvtrivia-title">Math Multipliers</h1>
+    <div className="tvtrivia-container" style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
+      <div className="tvtrivia-card" style={{ maxWidth: 700, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 48 }}>
+        <h1 className="tvtrivia-title" style={{ color: '#fff' }}>Math Multipliers</h1>
         <button
           className="tvtrivia-next-btn"
           style={{ background: '#e67e22', color: '#fff', fontWeight: 600, marginBottom: 18 }}
@@ -115,7 +115,7 @@ export default function MathMultipliers() {
                   type="number"
                   value={answer}
                   onChange={e => setAnswer(e.target.value)}
-                  style={{ fontSize: '1.2rem', padding: '8px 16px', borderRadius: 8, border: '1px solid #e67e22', marginBottom: 16, width: 120, textAlign: 'center' }}
+                  style={{ fontSize: '1.2rem', padding: '8px 16px', borderRadius: 8, border: '1px solid #e67e22', marginBottom: 16, width: 120, textAlign: 'center', background: '#18181b', color: '#fff' }}
                   disabled={gameOver}
                   autoFocus
                 />
@@ -148,7 +148,7 @@ export default function MathMultipliers() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 24 }}>
           <button
             className="tvtrivia-next-btn"
-            style={{ background: '#888', color: '#fff', fontWeight: 600 }}
+            style={{ background: '#333', color: '#fff', fontWeight: 600 }}
             onClick={() => navigate('/home')}
           >
             Back

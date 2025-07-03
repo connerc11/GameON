@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveAuth } from '../utils/auth';
 
-export default function SignInModal({ onClose, setSignInStatus }) {
+export default function SignInModal({ onClose, setSignInStatus, modalStyle }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -38,29 +38,52 @@ export default function SignInModal({ onClose, setSignInStatus }) {
   };
 
   return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
-    }}>
-      <div style={{
-        background: '#fff', padding: 32, borderRadius: 12, minWidth: 320, boxShadow: '0 2px 16px #0002', position: 'relative'
-      }}>
-        <button onClick={onClose} style={{ position: 'absolute', top: 10, right: 16, background: 'none', border: 'none', fontSize: 22, cursor: 'pointer' }}>×</button>
-        <h2 style={{ marginBottom: 18 }}>Sign In</h2>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'rgba(24,24,27,0.92)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        overflowY: 'auto',
+        ...modalStyle,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 500,
+          margin: '60px auto 0',
+          background: '#23232a',
+          borderRadius: 16,
+          boxShadow: '0 2px 16px #0008',
+          color: '#fff',
+          border: '1px solid #333',
+          padding: 24,
+          position: 'relative',
+          width: '90vw',
+        }}
+      >
+        <button onClick={onClose} style={{ position: 'absolute', top: 10, right: 16, background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: '#fff' }}>×</button>
+        <h2 style={{ marginBottom: 18, color: '#fff' }}>Sign In</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={e => setUsername(e.target.value)}
-            style={{ width: '100%', marginBottom: 12, padding: 8, fontSize: 16 }}
+            style={{ width: '100%', marginBottom: 12, padding: 8, fontSize: 16, borderRadius: 8, border: '1px solid #444', background: '#333', color: '#fff' }}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
-            style={{ width: '100%', marginBottom: 12, padding: 8, fontSize: 16 }}
+            style={{ width: '100%', marginBottom: 12, padding: 8, fontSize: 16, borderRadius: 8, border: '1px solid #444', background: '#333', color: '#fff' }}
           />
           {error && <div style={{ color: '#e74c3c', marginBottom: 10 }}>{error}</div>}
           <button type="submit" style={{

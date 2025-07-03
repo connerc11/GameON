@@ -252,136 +252,148 @@ export default function FunFight() {
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Fun Fight</h1>
-      {!battleStarted ? (
-        <div>
-          <p>Enter your player name and select your avatar to begin the battle!</p>
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={playerName}
-            onChange={e => { setPlayerName(e.target.value); if (nameError) setNameError(''); }}
-            style={{ margin: '10px', padding: '8px', fontSize: '1rem', borderRadius: '5px' }}
-          />
-          {nameError && (
-            <div style={{ color: '#e74c3c', fontWeight: 600, marginTop: 4 }}>{nameError}</div>
-          )}
-          <div style={{ margin: '18px 0 10px 0' }}>
-            <div style={{ marginBottom: 8, fontWeight: 500 }}>Choose your avatar:</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
-              {PLAYER_IMAGES.map((img, idx) => (
+    <div style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
+      <div style={{ maxWidth: 500, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 24 }}>
+        <h1 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: 24 }}>Fun Fight</h1>
+        {!battleStarted ? (
+          <div>
+            <p style={{ textAlign: 'center', marginBottom: 16 }}>Enter your player name and select your avatar to begin the battle!</p>
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={playerName}
+              onChange={e => { setPlayerName(e.target.value); if (nameError) setNameError(''); }}
+              style={{ margin: '10px', padding: '8px', fontSize: '1rem', borderRadius: '5px', width: '100%' }}
+            />
+            {nameError && (
+              <div style={{ color: '#e74c3c', fontWeight: 600, marginTop: 4 }}>{nameError}</div>
+            )}
+            <div style={{ margin: '18px 0 10px 0' }}>
+              <div style={{ marginBottom: 8, fontWeight: 500, textAlign: 'center' }}>Choose your avatar:</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
+                {PLAYER_IMAGES.map((img, idx) => (
+                  <img
+                    key={img}
+                    src={img}
+                    alt={`Avatar ${idx + 1}`}
+                    onClick={() => setSelectedAvatar(img)}
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '50%',
+                      border: selectedAvatar === img ? '3px solid #42b983' : '2px solid #ccc',
+                      boxShadow: selectedAvatar === img ? '0 0 8px #42b983' : 'none',
+                      cursor: 'pointer',
+                      background: '#fff',
+                      transition: 'border 0.2s, box-shadow 0.2s',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <button
+              onClick={handleStartBattle}
+              style={{ marginTop: '20px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer', width: '100%' }}
+              disabled={!playerName.trim()}
+            >
+              Start Battle
+            </button>
+          </div>
+        ) : (
+          <div>
+            <h2 style={{ textAlign: 'center', marginBottom: 16 }}>{playerName} vs {opponent}</h2>
+            <div className="funfight-battle-area" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24 }}>
+              <div className="funfight-character" style={{ flex: 1, textAlign: 'center' }}>
                 <img
-                  key={img}
-                  src={img}
-                  alt={`Avatar ${idx + 1}`}
-                  onClick={() => setSelectedAvatar(img)}
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: '50%',
-                    border: selectedAvatar === img ? '3px solid #42b983' : '2px solid #ccc',
-                    boxShadow: selectedAvatar === img ? '0 0 8px #42b983' : 'none',
-                    cursor: 'pointer',
-                    background: '#fff',
-                    transition: 'border 0.2s, box-shadow 0.2s',
-                  }}
+                  src={playerImg}
+                  alt="Player"
+                  className={`funfight-img${playerAttackAnim ? ' attack' : ''}`}
+                  style={{ width: '100%', maxWidth: 120, marginBottom: 8 }}
                 />
+                <HealthBar hp={playerHP} max={150} color="#42b983" />
+                <div style={{ fontWeight: 'bold', marginTop: 4 }}>{playerName}</div>
+                <div style={{ color: '#42b983', fontWeight: 600, fontSize: '1.05rem', marginTop: 2 }}>
+                  {playerHP} HP left
+                </div>
+              </div>
+              <div className="funfight-character" style={{ flex: 1, textAlign: 'center' }}>
+                <img
+                  src={opponentImg}
+                  alt="Opponent"
+                  className={`funfight-img opponent${opponentAttackAnim ? ' attack' : ''}`}
+                  style={{ width: '100%', maxWidth: 120, marginBottom: 8 }}
+                />
+                <HealthBar hp={opponentHP} max={150} color="#e74c3c" />
+                <div style={{ fontWeight: 'bold', marginTop: 4 }}>{opponent}</div>
+                <div style={{ color: '#e74c3c', fontWeight: 600, fontSize: '1.05rem', marginTop: 2 }}>
+                  {opponentHP} HP left
+                </div>
+              </div>
+            </div>
+            <div style={{ minHeight: '80px', marginBottom: '20px', maxWidth: 400, marginLeft: 'auto', marginRight: 'auto', background: '#222', color: '#fff', borderRadius: 10, padding: 12, fontFamily: 'monospace', fontSize: '1.05rem', boxShadow: '0 2px 8px rgba(34,49,63,0.08)' }}>
+              {battleLog.map((entry, idx) => (
+                <div key={idx} style={{ marginBottom: 6 }}>{entry}</div>
               ))}
             </div>
+            {winner ? (
+              <>
+                <h2 style={{ color: winner === playerName ? '#42b983' : '#e74c3c', textAlign: 'center' }}>{winner} wins!</h2>
+                <div style={{ textAlign: 'center' }}>
+                  <button
+                    onClick={handleRestart}
+                    style={{ marginTop: '20px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
+                  >
+                    Play Again
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 20 }}>
+                  <button
+                    onClick={playerAttack}
+                    style={{ padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer', flex: 1 }}
+                    disabled={turn !== 'player'}
+                  >
+                    Attack
+                  </button>
+                  <button
+                    onClick={playerDefend}
+                    style={{ padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: '#f1c40f', color: '#fff', border: 'none', cursor: 'pointer', flex: 1 }}
+                    disabled={turn !== 'player' || defending}
+                  >
+                    Defend
+                  </button>
+                </div>
+                <div style={{ textAlign: 'center', marginTop: 12 }}>
+                  <button
+                    onClick={playerSpecialAttack}
+                    style={{ padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: specialUsed ? '#aaa' : '#e74c3c', color: '#fff', border: 'none', cursor: specialUsed ? 'not-allowed' : 'pointer', width: '100%' }}
+                    disabled={turn !== 'player' || specialUsed}
+                    title={specialUsed ? 'Special Attack can only be used once per battle' : 'Deal 50% more damage!'}
+                  >
+                    Special Attack
+                  </button>
+                </div>
+              </>
+            )}
           </div>
+        )}
+        <div style={{ textAlign: 'center', marginTop: 40 }}>
           <button
-            onClick={handleStartBattle}
-            style={{ marginTop: '20px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
-            disabled={!playerName.trim()}
+            onClick={() => window.location.href = '/'}
+            style={{ padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer', marginRight: 12 }}
           >
-            Start Battle
+            Go to Homepage
+          </button>
+          <button
+            onClick={() => window.location.href = '/funfight-leaderboard'}
+            style={{ padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
+          >
+            View Fun Fight Leaderboard
           </button>
         </div>
-      ) : (
-        <div>
-          <h2>{playerName} vs {opponent}</h2>
-          <div className="funfight-battle-area">
-            <div className="funfight-character">
-              <img
-                src={playerImg}
-                alt="Player"
-                className={`funfight-img${playerAttackAnim ? ' attack' : ''}`}
-              />
-              <HealthBar hp={playerHP} max={150} color="#42b983" />
-              <div style={{ fontWeight: 'bold', marginTop: 4 }}>{playerName}</div>
-              <div style={{ color: '#42b983', fontWeight: 600, fontSize: '1.05rem', marginTop: 2 }}>
-                {playerHP} points left
-              </div>
-            </div>
-            <div className="funfight-character">
-              <img
-                src={opponentImg}
-                alt="Opponent"
-                className={`funfight-img opponent${opponentAttackAnim ? ' attack' : ''}`}
-              />
-              <HealthBar hp={opponentHP} max={150} color="#e74c3c" />
-              <div style={{ fontWeight: 'bold', marginTop: 4 }}>{opponent}</div>
-              <div style={{ color: '#e74c3c', fontWeight: 600, fontSize: '1.05rem', marginTop: 2 }}>
-                {opponentHP} points left
-              </div>
-            </div>
-          </div>
-          <div style={{ minHeight: '80px', marginBottom: '20px', maxWidth: 400, marginLeft: 'auto', marginRight: 'auto', background: '#222', color: '#fff', borderRadius: 10, padding: 12, fontFamily: 'monospace', fontSize: '1.05rem', boxShadow: '0 2px 8px rgba(34,49,63,0.08)' }}>
-            {battleLog.map((entry, idx) => (
-              <div key={idx} style={{ marginBottom: 6 }}>{entry}</div>
-            ))}
-          </div>
-          {winner ? (
-            <>
-              <h2 style={{ color: winner === playerName ? '#42b983' : '#e74c3c' }}>{winner} wins!</h2>
-              <button
-                onClick={handleRestart}
-                style={{ marginTop: '20px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
-              >
-                Play Again
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={playerAttack}
-                style={{ marginTop: '20px', marginRight: '12px', padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
-                disabled={turn !== 'player'}
-              >
-                Attack
-              </button>
-              <button
-                onClick={playerDefend}
-                style={{ marginTop: '20px', marginRight: '12px', padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: '#f1c40f', color: '#fff', border: 'none', cursor: 'pointer' }}
-                disabled={turn !== 'player' || defending}
-              >
-                Defend
-              </button>
-              <button
-                onClick={playerSpecialAttack}
-                style={{ marginTop: '20px', padding: '10px 24px', fontSize: '1.1rem', borderRadius: '8px', background: specialUsed ? '#aaa' : '#e74c3c', color: '#fff', border: 'none', cursor: specialUsed ? 'not-allowed' : 'pointer' }}
-                disabled={turn !== 'player' || specialUsed}
-                title={specialUsed ? 'Special Attack can only be used once per battle' : 'Deal 50% more damage!'}
-              >
-                Special Attack
-              </button>
-            </>
-          )}
-        </div>
-      )}
-      <button
-        onClick={() => window.location.href = '/'}
-        style={{ marginTop: '40px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
-      >
-        Go to Homepage
-      </button>
-      <button
-        onClick={() => window.location.href = '/funfight-leaderboard'}
-        style={{ marginTop: '10px', padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', background: '#42b983', color: '#fff', border: 'none', cursor: 'pointer' }}
-      >
-        View Fun Fight Leaderboard
-      </button>
+      </div>
     </div>
   );
 }
