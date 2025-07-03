@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Leaderboard from './Leaderboard';
-import './TVTrivia.css';
+import './landing-basketball.css';
 import { getToken, getUsername } from '../utils/auth';
 
 function InstructionsModal({ open, onClose }) {
@@ -25,6 +26,7 @@ function InstructionsModal({ open, onClose }) {
 }
 
 export default function FunFightLeaderboardPage() {
+  const navigate = useNavigate();
   const [userStats, setUserStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -58,30 +60,86 @@ export default function FunFightLeaderboardPage() {
   }, []);
 
   return (
-    <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
-      <button className="tvtrivia-home-btn" onClick={() => window.history.back()}>🏠 Back</button>
-      <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
-        <h1 className="tvtrivia-title" style={{ marginBottom: 18 }}>Fun Fight Leaderboard</h1>
+    <div style={{ background: '#111', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
+      {/* Back button, top left */}
+      <div style={{ position: 'fixed', top: 32, left: 32, zIndex: 10 }}>
         <button
-          className="tvtrivia-next-btn"
-          style={{ background: '#e67e22', color: '#fff', fontWeight: 600, marginBottom: 18 }}
+          style={{ padding: '10px 24px', borderRadius: 10, background: '#fbbf24', color: '#18181b', fontWeight: 700, fontSize: 18, border: 'none', boxShadow: '0 2px 8px #fbbf2422', cursor: 'pointer' }}
+          onClick={() => navigate('/home')}
+        >
+          🏠 Back to Home
+        </button>
+      </div>
+      
+      <div
+        style={{
+          maxWidth: 500,
+          margin: '80px auto 40px auto', // Move down to avoid overlap with top button
+          background: '#18181b',
+          borderRadius: 16,
+          boxShadow: '0 2px 16px #0008',
+          color: '#fff',
+          border: '1.5px solid #fbbf24',
+          padding: 24,
+          minHeight: 400,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          overflowY: 'auto',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png" alt="Basketball" style={{ width: 48, height: 48, marginRight: 16, animation: 'ball-bounce 1.6s infinite cubic-bezier(.68,-0.55,.27,1.55)' }} />
+          <h1 style={{ color: '#fbbf24', fontSize: '2rem', textAlign: 'center', margin: 0, letterSpacing: 1, fontWeight: 900 }}>
+            Fun Fight Leaderboard
+          </h1>
+        </div>
+        
+        <button
+          style={{ 
+            padding: '12px 24px', 
+            borderRadius: 10, 
+            background: '#e67e22', 
+            color: '#fff', 
+            fontWeight: 600, 
+            fontSize: 16,
+            border: 'none', 
+            boxShadow: '0 2px 8px #e67e2222', 
+            cursor: 'pointer',
+            marginBottom: 20,
+            alignSelf: 'center'
+          }}
           onClick={() => setShowInstructions(true)}
         >
           How to Play
         </button>
+        
         <Leaderboard game="funfight" limit={10} />
-        <div style={{ marginTop: 32, textAlign: 'left', background: '#18181b', borderRadius: 12, padding: '20px 18px', boxShadow: '0 2px 8px #0006', border: '1px solid #444', maxWidth: 400, marginLeft: 'auto', marginRight: 'auto' }}>
-          <h2 style={{ color: '#e67e22', fontSize: '1.2rem', marginBottom: 14, textAlign: 'center', letterSpacing: 0.5 }}>Your Stats</h2>
+        
+        <div style={{ marginTop: 32, background: '#2a2a2a', borderRadius: 12, padding: 20, border: '1px solid #fbbf24' }}>
+          <h2 style={{ color: '#ffe066', fontSize: '1.3rem', marginBottom: 14, textAlign: 'center', letterSpacing: 0.5, fontWeight: 700 }}>Your Stats</h2>
           {loading ? (
-            <div style={{ textAlign: 'center', color: '#aaa' }}>Loading...</div>
+            <div style={{ textAlign: 'center', color: '#fbbf24' }}>Loading...</div>
           ) : error ? (
-            <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+            <div style={{ color: '#ff6b6b', textAlign: 'center' }}>{error}</div>
           ) : userStats ? (
-            <ul style={{ fontSize: '1.15rem', color: '#fff', listStyle: 'none', padding: 0, margin: 0, textAlign: 'center' }}>
-              <li style={{ marginBottom: 8 }}><span style={{ color: '#27ae60', fontWeight: 600 }}>🏆 Wins:</span> {userStats.wins}</li>
-              <li style={{ marginBottom: 8 }}><span style={{ color: '#e74c3c', fontWeight: 600 }}>💀 Losses:</span> {userStats.losses}</li>
-              <li><span style={{ color: '#42b983', fontWeight: 600 }}>❤️ Highest Remaining Health Win:</span> {userStats.highestHealth} HP</li>
-            </ul>
+            <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center' }}>
+              <div>
+                <div style={{ color: '#27ae60', fontWeight: 600, fontSize: '1.5rem' }}>🏆</div>
+                <div style={{ color: '#27ae60', fontWeight: 600 }}>Wins</div>
+                <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700 }}>{userStats.wins}</div>
+              </div>
+              <div>
+                <div style={{ color: '#e74c3c', fontWeight: 600, fontSize: '1.5rem' }}>💀</div>
+                <div style={{ color: '#e74c3c', fontWeight: 600 }}>Losses</div>
+                <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700 }}>{userStats.losses}</div>
+              </div>
+              <div>
+                <div style={{ color: '#42b983', fontWeight: 600, fontSize: '1.5rem' }}>❤️</div>
+                <div style={{ color: '#42b983', fontWeight: 600 }}>Best Health</div>
+                <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 700 }}>{userStats.highestHealth} HP</div>
+              </div>
+            </div>
           ) : null}
         </div>
       </div>

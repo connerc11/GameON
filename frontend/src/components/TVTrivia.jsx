@@ -100,7 +100,7 @@ export default function TVTrivia() {
       <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
         <button className="tvtrivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
         <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
-          <h1 className="tvtrivia-title">TV Trivia</h1>
+          <h1 className="tvtrivia-title" style={{ color: '#fbbf24', fontSize: '2.2rem', marginBottom: 10, fontWeight: 900, letterSpacing: 2 }}>TV Trivia</h1>
           <h2>Your Score: {score}</h2>
           <button
             className="tvtrivia-next-btn"
@@ -121,9 +121,9 @@ export default function TVTrivia() {
     <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
       <button className="tvtrivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
       <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
-        <h1 className="tvtrivia-title">TV Trivia</h1>
-        <h2 className="tvtrivia-progress">Question {current + 1} of {questions.length}</h2>
-        <div className="tvtrivia-question" dangerouslySetInnerHTML={{ __html: q.question }} />
+        <h1 className="tvtrivia-title" style={{ color: '#fbbf24', fontSize: '2.2rem', marginBottom: 10, fontWeight: 900, letterSpacing: 2 }}>TV Trivia</h1>
+        <h2 className="tvtrivia-progress" style={{ color: '#fbbf24', fontSize: '1.1rem', marginBottom: 24 }}>Question {current + 1} of {questions.length}</h2>
+        <div className="tvtrivia-question" style={{ color: '#fff', fontSize: '1.3rem', marginBottom: 28, fontWeight: 500 }} dangerouslySetInnerHTML={{ __html: q.question }} />
         <ul className="tvtrivia-answers">
           {answers.map((a, i) => (
             <li key={i} className="tvtrivia-answer-item">
@@ -135,7 +135,21 @@ export default function TVTrivia() {
                 onChange={() => handleSelect(current, a)}
                 className="tvtrivia-radio"
               />
-              <label htmlFor={`q${current}-a${i}`} className="tvtrivia-label" dangerouslySetInnerHTML={{ __html: a }} />
+              <label 
+                htmlFor={`q${current}-a${i}`} 
+                className="tvtrivia-label" 
+                style={{ 
+                  color: '#e0e0e0', 
+                  backgroundColor: selectedAnswers[current] === a ? '#fbbf24' : 'rgba(255,255,255,0.07)',
+                  cursor: 'pointer',
+                  display: 'block',
+                  padding: '12px 16px',
+                  borderRadius: 8,
+                  marginBottom: 8,
+                  transition: 'all 0.2s'
+                }}
+                dangerouslySetInnerHTML={{ __html: a }} 
+              />
             </li>
           ))}
         </ul>

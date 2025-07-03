@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/FunFight.css';
 import './landing-basketball.css'; // Corrected import path
 import { useNavigate } from 'react-router-dom';
@@ -81,6 +81,40 @@ export default function FunFight() {
   const [nameError, setNameError] = useState('');
   const navigate = useNavigate();
 
+  const nonRankedMode = sessionStorage.getItem('nonRankedMode') === 'true';
+  const isSignedIn = !!getToken();
+
+  // Submit score when game ends
+  async function submitScore(game, score, token) {
+    try {
+      const res = await fetch('http://localhost:5000/api/scores', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        },
+        body: JSON.stringify({ game, score })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log('Score submitted successfully:', data);
+      } else {
+        console.error('Error submitting score:', data.message || 'Unknown error');
+      }
+    } catch (err) {
+      console.error('Error submitting score:', err);
+    }
+  }
+
+  // Submit score when battle ends
+  useEffect(() => {
+    if (winner && isSignedIn && !nonRankedMode && getToken()) {
+      // Calculate score: if player wins, score = remaining health; if player loses, score = 0
+      const finalScore = winner === playerName ? playerHP : 0;
+      submitScore('funfight', finalScore, getToken());
+    }
+  }, [winner, playerName, playerHP, isSignedIn, nonRankedMode]);
+
   // Require login before playing
   if (!getToken()) {
     return (
@@ -98,9 +132,6 @@ export default function FunFight() {
       </div>
     );
   }
-
-  const nonRankedMode = sessionStorage.getItem('nonRankedMode') === 'true';
-  const isSignedIn = !!getToken();
 
   const handleStartBattle = () => {
     if (!playerName.trim()) {
