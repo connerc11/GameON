@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignInModal from './SignInModal';
+import './landing-basketball.css';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -35,16 +36,16 @@ export default function LandingPage() {
   };
 
   return (
-    <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
+    <div style={{ background: '#111', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
       <div
         style={{
           maxWidth: 500,
           margin: '40px auto',
-          background: '#23232a',
+          background: '#18181b',
           borderRadius: 16,
           boxShadow: '0 2px 16px #0008',
           color: '#fff',
-          border: '1px solid #333',
+          border: '1.5px solid #fbbf24',
           padding: 24,
           minHeight: 400,
           display: 'flex',
@@ -59,12 +60,15 @@ export default function LandingPage() {
             {signInStatus.message}
           </div>
         )}
-        <h1 style={{ color: '#42b983', fontSize: '2.8rem', marginBottom: 10, textAlign: 'center' }}>
-          Welcome to GameOn!
-        </h1>
-        <p style={{ margin: '20px 0', color: '#ddd', fontSize: '1.2rem', textAlign: 'center' }}>
-          <b>Sign in</b> to play <span style={{ color: '#42b983' }}>ranked games</span> and save your scores.<br />
-          <span style={{ color: '#e67e22' }}>Or play non-ranked games as a guest!</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png" alt="Basketball" style={{ width: 48, height: 48, marginRight: 16, animation: 'ball-bounce 1.6s infinite cubic-bezier(.68,-0.55,.27,1.55)' }} />
+          <h1 style={{ color: '#fbbf24', fontSize: '2.8rem', textAlign: 'center', margin: 0, letterSpacing: 1 }}>
+            Welcome to GameOn!
+          </h1>
+        </div>
+        <p style={{ margin: '20px 0', color: '#ffe066', fontSize: '1.2rem', textAlign: 'center' }}>
+          <b>Sign in</b> to play <span style={{ color: '#fbbf24' }}>ranked games</span> and save your scores.<br />
+          <span style={{ color: '#ffe066' }}>Or play non-ranked games as a guest!</span>
         </p>
         <div
           style={{
@@ -78,7 +82,7 @@ export default function LandingPage() {
         >
           <button
             onClick={() => setShowSignInModal(true)}
-            style={{ minWidth: 160, margin: 5, padding: '16px 32px', fontSize: 20, background: '#42b983', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 2px 8px #42b98322', flex: '1 1 220px', maxWidth: 250 }}
+            style={{ minWidth: 160, margin: 5, padding: '16px 32px', fontSize: 20, background: '#fbbf24', color: '#18181b', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 2px 8px #fbbf2422', flex: '1 1 220px', maxWidth: 250, fontWeight: 700 }}
           >
             Sign In
           </button>
@@ -90,12 +94,12 @@ export default function LandingPage() {
           </button>
           <button
             onClick={handleNonRanked}
-            style={{ minWidth: 220, margin: 5, padding: '16px 32px', fontSize: 20, background: '#e67e22', color: '#fff', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 2px 8px #e67e2222', flex: '1 1 100%', maxWidth: 500 }}
+            style={{ minWidth: 220, margin: 5, padding: '16px 32px', fontSize: 20, background: '#ffe066', color: '#18181b', border: 'none', borderRadius: 10, cursor: 'pointer', boxShadow: '0 2px 8px #ffe06622', flex: '1 1 100%', maxWidth: 500, fontWeight: 700 }}
           >
             Play Non-Ranked Games (Guest Mode)
           </button>
         </div>
-        <div style={{ marginTop: 40, color: '#888', fontSize: '1.1rem', textAlign: 'center' }}>
+        <div style={{ marginTop: 40, color: '#ffe066', fontSize: '1.1rem', textAlign: 'center' }}>
           <p><b>Ranked games</b> let you compete for high scores and appear on leaderboards.<br />
           <b>Non-ranked games</b> are for fun only—no scores will be saved and leaderboards are disabled.</p>
         </div>

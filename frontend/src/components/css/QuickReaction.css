@@ -1,0 +1,84 @@
+/* QuickReaction black/yellow sports theme, matching HomePage */
+.quickreact-container {
+  min-height: 100vh;
+  width: 100vw;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.quickreact-card {
+  background: #18181b;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px #000a;
+  border: 2.5px solid #FFD600;
+  max-width: 520px;
+  width: 95vw;
+  margin: 48px auto;
+  padding: 36px 28px 32px 28px;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.quickreact-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FFD600;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.quickreact-btn {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #FFD60022;
+  margin-bottom: 18px;
+}
+.quickreact-btn-yellow {
+  background: #FFD600;
+  color: #18181b;
+}
+.quickreact-btn-green {
+  background: #18181b;
+  color: #FFD600;
+  border: 2px solid #FFD600;
+}
+.quickreact-btn-gray {
+  background: #888;
+  color: #fff;
+}
+.quickreact-btn:disabled {
+  background: #aaa !important;
+  color: #fff !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.quickreact-message {
+  font-size: 1.2rem;
+  margin: 24px 0;
+  color: #FFD600;
+  text-align: center;
+}
+.quickreact-nav-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+@media (max-width: 700px) {
+  .quickreact-card {
+    padding: 18px 4vw 18px 4vw;
+    max-width: 99vw;
+  }
+}

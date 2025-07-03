@@ -67,12 +67,16 @@
 .tvtrivia-label {
   font-size: 1.1rem;
   cursor: pointer;
-  color: #333;
-  transition: color 0.2s;
+  color: #e0e0e0;
+  background: rgba(255,255,255,0.07);
+  border-radius: 7px;
+  padding: 7px 14px;
+  transition: color 0.2s, background 0.2s;
 }
 
 .tvtrivia-label:hover {
-  color: #e67e22;
+  color: #fff;
+  background: #e67e22;
 }
 
 .tvtrivia-next-btn, .tvtrivia-restart-btn {

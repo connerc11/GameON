@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
+import './landing-basketball.css';
 
 const rankedGames = [
   { name: 'SportsTrivia Game', path: '/trivia-game' },
@@ -8,7 +9,6 @@ const rankedGames = [
   { name: 'Fun Fight', path: '/funfight' },
 ];
 const nonRankedGames = [
-  
   { name: 'Math Multipliers', path: '/math-multipliers' },
   { name: 'Quick Reaction', path: '/quick-reaction' },
   { name: 'Maze Escape', path: '/maze-escape' },
@@ -52,35 +52,83 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
-      <div style={{ maxWidth: 500, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 24 }}>
+    <div style={{ background: '#111', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
+      {/* Sign Out button, top left */}
+      <div style={{ position: 'fixed', top: 32, left: 32, zIndex: 10 }}>
+        <button
+          style={{ padding: '10px 24px', borderRadius: 10, background: '#fbbf24', color: '#18181b', fontWeight: 700, fontSize: 18, border: 'none', boxShadow: '0 2px 8px #fbbf2422', cursor: 'pointer' }}
+          onClick={() => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.removeItem('loginTimestamp');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('loginTimestamp');
+            sessionStorage.removeItem('auth');
+            sessionStorage.removeItem('nonRankedMode');
+            navigate('/');
+          }}
+        >
+          Sign Out
+        </button>
+      </div>
+      <div
+        style={{
+          maxWidth: 500,
+          margin: '80px auto 40px auto', // Move down to avoid overlap with top button
+          background: '#18181b',
+          borderRadius: 16,
+          boxShadow: '0 2px 16px #0008',
+          color: '#fff',
+          border: '1.5px solid #fbbf24',
+          padding: 24,
+          minHeight: 400,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          overflowY: 'auto',
+        }}
+      >
         {nonRankedMode && (
-          <div className="w-full max-w-2xl rounded-xl shadow-md bg-yellow-100 border border-yellow-200 text-yellow-900 px-6 py-4 mb-8 text-center text-lg font-semibold">
+          <div style={{ width: '100%', borderRadius: 12, background: '#ffe066', color: '#18181b', fontWeight: 600, padding: '16px 18px', marginBottom: 18, textAlign: 'center', fontSize: '1.1rem', border: '1.5px solid #fbbf24' }}>
             <span>You are playing in <b>Guest Mode</b>. Leaderboards and score saving are disabled.<br />
-            To play ranked games and see your scores, <span className="underline cursor-pointer text-green-600 hover:text-green-700 transition" onClick={() => { sessionStorage.removeItem('nonRankedMode'); navigate('/signup'); }}>create an account and sign up</span>.</span>
+            To play ranked games and see your scores, <span style={{ textDecoration: 'underline', cursor: 'pointer', color: '#fbbf24' }} onClick={() => { sessionStorage.removeItem('nonRankedMode'); navigate('/signup'); }}>create an account and sign up</span>.</span>
           </div>
         )}
-        <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 drop-shadow mb-2">GameOn Games</h1>
-        <h2 className="text-2xl font-bold text-gray-700 mb-4 mt-6">Ranked Games</h2>
-        <ul className="flex flex-wrap justify-center gap-6 mb-8">
+        {nonRankedMode && (
+          <button
+            onClick={() => { sessionStorage.removeItem('nonRankedMode'); navigate('/signin'); }}
+            style={{ width: '100%', padding: 12, background: '#fbbf24', color: '#18181b', border: 'none', borderRadius: 10, fontSize: 20, fontWeight: 700, marginBottom: 24, cursor: 'pointer', boxShadow: '0 2px 8px #fbbf2422' }}
+          >
+            Sign In to Play Ranked Games
+          </button>
+        )}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png" alt="Basketball" style={{ width: 48, height: 48, marginRight: 16, animation: 'ball-bounce 1.6s infinite cubic-bezier(.68,-0.55,.27,1.55)' }} />
+          <h1 style={{ color: '#fbbf24', fontSize: '2.2rem', textAlign: 'center', margin: 0, letterSpacing: 1, fontWeight: 900 }}>
+            GameOn Games
+          </h1>
+        </div>
+        <h2 style={{ color: '#ffe066', fontSize: '1.3rem', marginBottom: 14, marginTop: 18, textAlign: 'center', fontWeight: 700 }}>Ranked Games</h2>
+        <ul style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginBottom: 24, padding: 0, listStyle: 'none' }}>
           {(isSignedIn && !nonRankedMode ? rankedGames : []).map((game) => (
             <li key={game.name}>
               <button
                 onClick={() => handleGameClick(game.path, true)}
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-green-400 to-blue-400 text-white text-xl font-bold shadow-lg hover:scale-105 hover:from-green-500 hover:to-blue-500 transition-all duration-200"
+                style={{ padding: '16px 32px', borderRadius: 10, background: '#fbbf24', color: '#18181b', fontWeight: 700, fontSize: 18, border: 'none', boxShadow: '0 2px 8px #fbbf2422', cursor: 'pointer', minWidth: 180, margin: 2 }}
               >
                 {game.name}
               </button>
             </li>
           ))}
         </ul>
-        <h2 className="text-2xl font-bold text-gray-700 mb-4 mt-6">Non-Ranked Games</h2>
-        <ul className="flex flex-wrap justify-center gap-6">
+        <h2 style={{ color: '#ffe066', fontSize: '1.3rem', marginBottom: 14, marginTop: 18, textAlign: 'center', fontWeight: 700 }}>Non-Ranked Games</h2>
+        <ul style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, padding: 0, listStyle: 'none' }}>
           {nonRankedGames.map((game) => (
             <li key={game.name}>
               <button
                 onClick={() => handleGameClick(game.path, false)}
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800 text-xl font-bold shadow hover:scale-105 hover:from-gray-400 hover:to-gray-500 transition-all duration-200"
+                style={{ padding: '16px 32px', borderRadius: 10, background: '#ffe066', color: '#18181b', fontWeight: 700, fontSize: 18, border: 'none', boxShadow: '0 2px 8px #ffe06622', cursor: 'pointer', minWidth: 180, margin: 2 }}
               >
                 {game.name}
               </button>

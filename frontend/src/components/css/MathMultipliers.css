@@ -1,0 +1,114 @@
+/* MathMultipliers black/yellow sports theme, matching HomePage */
+.mathmult-container {
+  min-height: 100vh;
+  width: 100vw;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.mathmult-card {
+  background: #18181b;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px #000a;
+  border: 2.5px solid #FFD600;
+  max-width: 520px;
+  width: 95vw;
+  margin: 48px auto;
+  padding: 36px 28px 32px 28px;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.mathmult-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #FFD600;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.mathmult-btn {
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #FFD60022;
+  margin-bottom: 18px;
+}
+.mathmult-btn-yellow {
+  background: #FFD600;
+  color: #18181b;
+}
+.mathmult-btn-green {
+  background: #18181b;
+  color: #FFD600;
+  border: 2px solid #FFD600;
+}
+.mathmult-btn-red {
+  background: #FF5252;
+  color: #fff;
+}
+.mathmult-btn:disabled {
+  background: #aaa !important;
+  color: #fff !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.mathmult-score {
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+  color: #FFD600;
+  text-align: center;
+}
+.mathmult-timer {
+  font-size: 1.3rem;
+  margin-bottom: 18px;
+  color: #FFD600;
+  text-align: center;
+}
+.mathmult-question {
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  color: #fff;
+  text-align: center;
+}
+.mathmult-input {
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #FFD600;
+  margin-bottom: 16px;
+  width: 120px;
+  text-align: center;
+  background: #222;
+  color: #FFD600;
+  font-weight: 600;
+}
+.mathmult-final {
+  font-size: 1.3rem;
+  margin: 18px 0;
+  color: #FFD600;
+  text-align: center;
+}
+.mathmult-nav-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+@media (max-width: 700px) {
+  .mathmult-card {
+    padding: 18px 4vw 18px 4vw;
+    max-width: 99vw;
+  }
+}

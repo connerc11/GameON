@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TVTrivia.css';
+import './css/QuickReaction.css';
 
 function InstructionsModal({ open, onClose }) {
   if (!open) return null;
@@ -59,22 +59,27 @@ export default function QuickReaction() {
   };
 
   return (
-    <div style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
-      <div style={{ maxWidth: 500, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 24 }}>
-        <h1 className="tvtrivia-title">Quick Reaction</h1>
+    <div className="quickreact-container">
+      {/* Return to Homepage button outside the card, top left but slightly down and to the right */}
+      <div style={{ position: 'fixed', top: 40, left: 48, zIndex: 10 }}>
+        <button className="quickreact-btn quickreact-btn-yellow" onClick={() => navigate('/home')}>
+          Return to Homepage
+        </button>
+      </div>
+      <div className="quickreact-card">
+        <h1 className="quickreact-title">Quick Reaction</h1>
         <button
-          className="tvtrivia-next-btn"
-          style={{ background: '#e67e22', color: '#fff', fontWeight: 600, marginBottom: 18 }}
+          className="quickreact-btn quickreact-btn-yellow"
           onClick={() => setShowInstructions(true)}
         >
           How to Play
         </button>
-        <div style={{ fontSize: '1.2rem', margin: '24px 0', color: waiting ? '#888' : '#42b983' }}>{message}</div>
+        <div className="quickreact-message" style={{ color: waiting ? '#888' : '#FFD600' }}>{message}</div>
         {/* Only show Start button if not started and no reactionTime */}
         {!started && reactionTime === null && (
           <button
-            className="tvtrivia-next-btn"
-            style={{ background: '#42b983', color: '#fff', fontWeight: 600, minWidth: 120, minHeight: 48, fontSize: '1.1rem' }}
+            className="quickreact-btn quickreact-btn-green"
+            style={{ minWidth: 120, minHeight: 48, fontSize: '1.1rem' }}
             onClick={startGame}
           >
             Start
@@ -83,8 +88,8 @@ export default function QuickReaction() {
         {/* Game in progress: clickable area */}
         {started && (
           <button
-            className="tvtrivia-next-btn"
-            style={{ background: waiting ? '#888' : '#42b983', color: '#fff', fontWeight: 600, minWidth: 120, minHeight: 48, fontSize: '1.1rem' }}
+            className={`quickreact-btn ${waiting ? 'quickreact-btn-gray' : 'quickreact-btn-green'}`}
+            style={{ minWidth: 120, minHeight: 48, fontSize: '1.1rem' }}
             onClick={handleClick}
           >
             {waiting ? '...' : 'CLICK!'}
@@ -92,9 +97,9 @@ export default function QuickReaction() {
         )}
         {/* After game ends: Try Again and Back to Homepage */}
         {reactionTime !== null && !started && (
-          <div style={{ marginTop: 18, color: '#e67e22', fontWeight: 600, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <button className="tvtrivia-next-btn" style={{ background: '#42b983', color: '#fff' }} onClick={startGame}>Try Again</button>
-            <button className="tvtrivia-next-btn" style={{ background: '#888', color: '#fff' }} onClick={() => navigate('/home')}>Back to Homepage</button>
+          <div className="quickreact-nav-row">
+            <button className="quickreact-btn quickreact-btn-green" onClick={startGame}>Try Again</button>
+            <button className="quickreact-btn quickreact-btn-yellow" onClick={() => navigate('/home')}>Back to Homepage</button>
           </div>
         )}
       </div>

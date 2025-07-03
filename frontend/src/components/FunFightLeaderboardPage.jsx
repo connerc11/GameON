@@ -58,9 +58,9 @@ export default function FunFightLeaderboardPage() {
   }, []);
 
   return (
-    <div className="tvtrivia-container">
+    <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
       <button className="tvtrivia-home-btn" onClick={() => window.history.back()}>🏠 Back</button>
-      <div className="tvtrivia-card" style={{ maxWidth: 500, margin: '40px auto' }}>
+      <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
         <h1 className="tvtrivia-title" style={{ marginBottom: 18 }}>Fun Fight Leaderboard</h1>
         <button
           className="tvtrivia-next-btn"
@@ -70,17 +70,17 @@ export default function FunFightLeaderboardPage() {
           How to Play
         </button>
         <Leaderboard game="funfight" limit={10} />
-        <div style={{ marginTop: 32, textAlign: 'left' }}>
-          <h2 style={{ color: '#e67e22', fontSize: '1.2rem', marginBottom: 10 }}>Your Stats</h2>
+        <div style={{ marginTop: 32, textAlign: 'left', background: '#18181b', borderRadius: 12, padding: '20px 18px', boxShadow: '0 2px 8px #0006', border: '1px solid #444', maxWidth: 400, marginLeft: 'auto', marginRight: 'auto' }}>
+          <h2 style={{ color: '#e67e22', fontSize: '1.2rem', marginBottom: 14, textAlign: 'center', letterSpacing: 0.5 }}>Your Stats</h2>
           {loading ? (
-            <div>Loading...</div>
+            <div style={{ textAlign: 'center', color: '#aaa' }}>Loading...</div>
           ) : error ? (
-            <div style={{ color: 'red' }}>{error}</div>
+            <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
           ) : userStats ? (
-            <ul style={{ fontSize: '1.1rem', color: '#444' }}>
-              <li><b>Wins:</b> {userStats.wins}</li>
-              <li><b>Losses:</b> {userStats.losses}</li>
-              <li><b>Highest Remaining Health Win:</b> {userStats.highestHealth} HP</li>
+            <ul style={{ fontSize: '1.15rem', color: '#fff', listStyle: 'none', padding: 0, margin: 0, textAlign: 'center' }}>
+              <li style={{ marginBottom: 8 }}><span style={{ color: '#27ae60', fontWeight: 600 }}>🏆 Wins:</span> {userStats.wins}</li>
+              <li style={{ marginBottom: 8 }}><span style={{ color: '#e74c3c', fontWeight: 600 }}>💀 Losses:</span> {userStats.losses}</li>
+              <li><span style={{ color: '#42b983', fontWeight: 600 }}>❤️ Highest Remaining Health Win:</span> {userStats.highestHealth} HP</li>
             </ul>
           ) : null}
         </div>

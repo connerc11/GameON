@@ -1,38 +1,148 @@
-/* FunFight styles for character images and attack animations */
+/* Full-page black/yellow sports theme for FunFight */
+.funfight-full-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.funfight-basketball-anim-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 180px;
+  height: 180px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.funfight-card {
+  background: #18181b;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px #000a;
+  border: 2.5px solid #ffd600;
+  max-width: 520px;
+  width: 95vw;
+  margin: 48px auto;
+  padding: 36px 28px 32px 28px;
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.funfight-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffd600;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+
+.funfight-desc {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #fff;
+  font-size: 1.08rem;
+}
+
+.funfight-input {
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 1.08rem;
+  border-radius: 7px;
+  width: 100%;
+  border: 1.5px solid #ffd600;
+  background: #222;
+  color: #ffd600;
+  font-weight: 600;
+}
+
+.funfight-error {
+  color: #ff5252;
+  font-weight: 700;
+  margin-top: 4px;
+  text-align: center;
+}
+
+.funfight-avatar-select {
+  margin: 18px 0 10px 0;
+}
+.funfight-avatar-label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffd600;
+}
+.funfight-avatar-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.funfight-avatar-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2.5px solid #ffd600;
+  background: #fff;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 #ffd600;
+}
+.funfight-avatar-img.selected {
+  border: 3.5px solid #ffd600;
+  box-shadow: 0 0 12px #ffd60099;
+}
+
+.funfight-vs {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+  color: #fff;
+  font-weight: 700;
+}
+.funfight-vs-sep {
+  color: #ffd600;
+  font-weight: 900;
+  margin: 0 8px;
+}
+
 .funfight-battle-area {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 60px;
-  margin: 30px 0 20px 0;
-  min-height: 180px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 18px;
 }
 
 .funfight-character {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex: 1;
+  text-align: center;
 }
 
 .funfight-img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
+  width: 100%;
+  max-width: 120px;
+  margin-bottom: 8px;
   border-radius: 50%;
-  border: 3px solid #42b983;
+  border: 3px solid #ffd600;
   background: #fff;
-  box-shadow: 0 2px 12px rgba(34, 49, 63, 0.08);
-  transition: transform 0.3s;
+  box-shadow: 0 2px 12px #ffd60033;
+  transition: transform 0.3s, border 0.2s;
 }
-
 .funfight-img.opponent {
-  border-color: #e74c3c;
+  border-color: #ff5252;
+  box-shadow: 0 2px 12px #ff525233;
 }
-
 .funfight-img.attack {
   animation: funfight-attack 0.4s linear;
 }
-
 @keyframes funfight-attack {
   0% { transform: scale(1) translateX(0); }
   30% { transform: scale(1.1) translateX(20px); }
@@ -40,18 +150,121 @@
   100% { transform: scale(1) translateX(0); }
 }
 
-.funfight-hp {
-  font-weight: bold;
-  margin-top: 8px;
+.funfight-char-name {
+  font-weight: 700;
+  margin-top: 4px;
+  color: #ffd600;
+  font-size: 1.08rem;
+}
+.funfight-char-hp {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-top: 2px;
+}
+.funfight-char-hp-player {
+  color: #ffd600;
+}
+.funfight-char-hp-opponent {
+  color: #ff5252;
+}
+
+.funfight-battle-log {
+  min-height: 80px;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #222;
+  color: #ffd600;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px #ffd60022;
+}
+.funfight-log-entry {
+  margin-bottom: 6px;
+}
+
+.funfight-winner {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: 18px 0 0 0;
+}
+.funfight-winner-player {
+  color: #ffd600;
+}
+.funfight-winner-opponent {
+  color: #ff5252;
+}
+
+.funfight-action-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.funfight-special-row {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.funfight-btn {
+  padding: 10px 24px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #ffd60022;
+}
+.funfight-btn-yellow {
+  background: #ffd600;
+  color: #18181b;
+}
+.funfight-btn-green {
+  background: #18181b;
+  color: #ffd600;
+  border: 2px solid #ffd600;
+}
+.funfight-btn-red {
+  background: #ff5252;
+  color: #fff;
+}
+.funfight-btn.disabled, .funfight-btn:disabled {
+  background: #aaa !important;
+  color: #fff !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.funfight-nav-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
 }
 
 @media (max-width: 700px) {
+  .funfight-card {
+    padding: 18px 4vw 18px 4vw;
+    max-width: 99vw;
+  }
+  .funfight-basketball-anim-container {
+    width: 100px;
+    height: 100px;
+  }
   .funfight-battle-area {
-    gap: 20px;
+    gap: 8px;
   }
   .funfight-img {
-    width: 70px;
-    height: 70px;
+    max-width: 70px;
+  }
+  .funfight-avatar-img {
+    width: 36px;
+    height: 36px;
   }
 }
 

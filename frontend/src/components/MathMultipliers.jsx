@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TVTrivia.css';
+import './css/MathMultipliers.css';
 
 function InstructionsModal({ open, onClose }) {
   if (!open) return null;
@@ -78,36 +78,35 @@ export default function MathMultipliers() {
   };
 
   return (
-    <div className="tvtrivia-container" style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
-      <div className="tvtrivia-card" style={{ maxWidth: 700, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 48 }}>
-        <h1 className="tvtrivia-title" style={{ color: '#fff' }}>Math Multipliers</h1>
+    <div className="mathmult-container">
+      <div className="mathmult-card">
+        <h1 className="mathmult-title">Math Multipliers</h1>
         <button
-          className="tvtrivia-next-btn"
-          style={{ background: '#e67e22', color: '#fff', fontWeight: 600, marginBottom: 18 }}
+          className="mathmult-btn mathmult-btn-yellow"
           onClick={() => setShowInstructions(true)}
         >
           How to Play
         </button>
         {!started ? (
           <button
-            className="tvtrivia-next-btn"
-            style={{ background: '#42b983', color: '#fff', fontWeight: 600, fontSize: '1.2rem', padding: '12px 32px', margin: '32px 0' }}
+            className="mathmult-btn mathmult-btn-green"
+            style={{ fontSize: '1.2rem', margin: '32px 0' }}
             onClick={handleStart}
           >
             Start Game
           </button>
         ) : (
           <>
-            <h2 style={{ color: '#42b983', marginBottom: 18 }}>Answer as many as you can in 60 seconds!</h2>
-            <div style={{ fontSize: '1.3rem', marginBottom: 18 }}>
-              Time Left: <b style={{ color: timeLeft <= 10 ? '#e74c3c' : '#42b983' }}>{timeLeft}s</b>
+            <h2 style={{ color: '#FFD600', marginBottom: 18, textAlign: 'center' }}>Answer as many as you can in 60 seconds!</h2>
+            <div className="mathmult-timer">
+              Time Left: <b style={{ color: timeLeft <= 10 ? '#FF5252' : '#FFD600' }}>{timeLeft}s</b>
             </div>
-            <div style={{ fontSize: '1.2rem', marginBottom: 18 }}>
+            <div className="mathmult-score">
               Score: <b>{score}</b>
             </div>
             {!gameOver ? (
               <form onSubmit={handleSubmit} autoComplete="off">
-                <div style={{ fontSize: '1.5rem', marginBottom: 18 }}>
+                <div className="mathmult-question">
                   {num1} × {num2} = ?
                 </div>
                 <input
@@ -115,15 +114,15 @@ export default function MathMultipliers() {
                   type="number"
                   value={answer}
                   onChange={e => setAnswer(e.target.value)}
-                  style={{ fontSize: '1.2rem', padding: '8px 16px', borderRadius: 8, border: '1px solid #e67e22', marginBottom: 16, width: 120, textAlign: 'center', background: '#18181b', color: '#fff' }}
+                  className="mathmult-input"
                   disabled={gameOver}
                   autoFocus
                 />
                 <br />
                 <button
                   type="submit"
-                  className="tvtrivia-next-btn"
-                  style={{ marginTop: 10, background: '#42b983', color: '#fff', fontWeight: 600 }}
+                  className="mathmult-btn mathmult-btn-green"
+                  style={{ marginTop: 10 }}
                   disabled={gameOver || answer === ''}
                 >
                   Submit
@@ -131,12 +130,11 @@ export default function MathMultipliers() {
               </form>
             ) : (
               <>
-                <div style={{ fontSize: '1.3rem', margin: '18px 0', color: '#e67e22' }}>
+                <div className="mathmult-final">
                   Time's up!<br />Final Score: <b>{score}</b>
                 </div>
                 <button
-                  className="tvtrivia-next-btn"
-                  style={{ background: '#42b983', color: '#fff', fontWeight: 600 }}
+                  className="mathmult-btn mathmult-btn-green"
                   onClick={handleRestart}
                 >
                   Play Again
@@ -145,17 +143,15 @@ export default function MathMultipliers() {
             )}
           </>
         )}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 24 }}>
+        <div className="mathmult-nav-row">
           <button
-            className="tvtrivia-next-btn"
-            style={{ background: '#333', color: '#fff', fontWeight: 600 }}
+            className="mathmult-btn mathmult-btn-green"
             onClick={() => navigate('/home')}
           >
             Back
           </button>
           <button
-            className="tvtrivia-next-btn"
-            style={{ background: '#42b983', color: '#fff', fontWeight: 600 }}
+            className="mathmult-btn mathmult-btn-yellow"
             onClick={() => navigate('/signin')}
           >
             Sign In

@@ -92,6 +92,14 @@ export default function SignIn({ onSignIn, onClose }) {
         >
           Don't have an account? Sign Up
         </button>
+        <button
+          onClick={() => { if (onClose) onClose(); window.location.href = '/'; }}
+          style={{
+            width: '100%', padding: 10, background: '#e67e22', color: '#fff', border: 'none', borderRadius: 6, fontSize: 16, marginTop: 8
+          }}
+        >
+          Play Non-Ranked Games (Guest Mode)
+        </button>
       </div>
     </div>
   );

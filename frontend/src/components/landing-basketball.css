@@ -1,0 +1,8 @@
+@keyframes ball-bounce {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-18px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-8px); }
+  80% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}

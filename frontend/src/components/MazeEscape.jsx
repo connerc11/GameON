@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TVTrivia.css';
+import './css/MazeEscape.css';
 
 function InstructionsModal({ open, onClose }) {
   if (!open) return null;
@@ -72,35 +72,35 @@ export default function MazeEscape() {
   }, [pos, size]);
 
   return (
-    <div style={{ background: '#18181b', minHeight: '100vh', color: '#fff' }}>
-      <div style={{ maxWidth: 500, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 24 }}>
-        <h1 className="tvtrivia-title">Maze Escape</h1>
+    <div className="mazeescape-container">
+      <div className="mazeescape-card">
+        <h1 className="mazeescape-title">Maze Escape</h1>
         <button
-          className="tvtrivia-next-btn"
-          style={{ background: '#e67e22', color: '#fff', fontWeight: 600, marginBottom: 18 }}
+          className="mazeescape-btn mazeescape-btn-yellow"
           onClick={() => setShowInstructions(true)}
         >
           How to Play
         </button>
-        <div style={{ margin: '18px 0', fontSize: '1.1rem' }}>Use your arrow keys to reach the orange exit square!</div>
-        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${size}, 28px)`, justifyContent: 'center', margin: '0 auto', background: '#e67e22', borderRadius: 8, padding: 6 }}>
+        <div className="mazeescape-message">Use your arrow keys to reach the orange exit square!</div>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${size}, 28px)`, justifyContent: 'center', margin: '0 auto', background: '#FFD600', borderRadius: 8, padding: 6 }}>
           {maze.map((row, i) => row.map((cell, j) => {
             let bg = cell === 1 ? '#222' : '#fff';
             if (i === 0 && j === 0) bg = '#42b983';
-            if (i === size - 1 && j === size - 1) bg = '#e67e22';
+            if (i === size - 1 && j === size - 1) bg = '#FFD600';
             if (i === pos[0] && j === pos[1]) bg = won ? '#27ae60' : '#3498db';
             return <div key={i + '-' + j} style={{ width: 26, height: 26, background: bg, borderRadius: 4, border: '1px solid #eee', boxSizing: 'border-box' }} />;
           }))}
         </div>
-        {won && <div style={{ marginTop: 18, color: '#27ae60', fontWeight: 600, fontSize: '1.2rem' }}>You escaped the maze!</div>}
+        {won && <div style={{ marginTop: 18, color: '#27ae60', fontWeight: 600, fontSize: '1.2rem', textAlign: 'center' }}>You escaped the maze!</div>}
+        <div className="mazeescape-nav-row">
+          <button
+            className="mazeescape-btn mazeescape-btn-yellow"
+            onClick={() => navigate('/home')}
+          >
+            Back to Homepage
+          </button>
+        </div>
       </div>
-      <button
-        className="tvtrivia-next-btn"
-        style={{ background: '#42b983', color: '#fff', fontWeight: 600, marginTop: 24, padding: '10px 30px', fontSize: '1.1rem', borderRadius: '8px', border: 'none', cursor: 'pointer' }}
-        onClick={() => navigate('/home')}
-      >
-        Back to Homepage
-      </button>
       <InstructionsModal open={showInstructions} onClose={() => setShowInstructions(false)} />
     </div>
   );

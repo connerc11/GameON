@@ -1,0 +1,174 @@
+/* Sports Trivia Game - Modern Full-Page UI with Sports Animation */
+.trivia-container {
+  background: linear-gradient(135deg, #18181b 60%, #1e293b 100%);
+  min-height: 100vh;
+  min-width: 100vw;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 0;
+}
+
+.trivia-card {
+  max-width: 540px;
+  margin: 48px auto 0 auto;
+  background: #23232a;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #000a;
+  color: #fff;
+  border: 1.5px solid #2c3e50;
+  padding: 32px 28px 36px 28px;
+  position: relative;
+  z-index: 1;
+  animation: sports-bounce-in 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes sports-bounce-in {
+  0% { transform: scale(0.7) translateY(-80px); opacity: 0; }
+  60% { transform: scale(1.05) translateY(10px); opacity: 1; }
+  80% { transform: scale(0.98) translateY(-4px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.trivia-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  color: #00c3ff;
+  text-shadow: 0 2px 12px #00c3ff44, 0 1px 0 #222;
+}
+
+.trivia-progress {
+  text-align: center;
+  color: #fbbf24;
+  font-size: 1.2rem;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.trivia-question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #fff;
+  text-align: center;
+  background: rgba(0,195,255,0.08);
+  border-radius: 8px;
+  padding: 12px 10px;
+  box-shadow: 0 1px 6px #00c3ff22;
+}
+
+.trivia-answers {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px 0;
+}
+
+.trivia-answer-item {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.trivia-radio {
+  accent-color: #00c3ff;
+  width: 22px;
+  height: 22px;
+  margin-right: 14px;
+}
+
+.trivia-label {
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #e0e0e0;
+  background: rgba(0,195,255,0.09);
+  border-radius: 7px;
+  padding: 7px 14px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.trivia-label:hover {
+  color: #fff;
+  background: #00c3ff;
+}
+
+.trivia-next-btn {
+  background: linear-gradient(90deg, #00c3ff 60%, #fbbf24 100%);
+  color: #23232a;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px #00c3ff33;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.trivia-next-btn:disabled {
+  background: #444;
+  color: #bbb;
+  cursor: not-allowed;
+}
+.trivia-next-btn:hover:not(:disabled) {
+  background: linear-gradient(90deg, #00eaff 60%, #fbbf24 100%);
+  color: #18181b;
+  transform: scale(1.04);
+}
+
+.trivia-home-btn {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  background: #fff;
+  color: #00c3ff;
+  border: 2px solid #00c3ff;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #00c3ff22;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s, color 0.2s;
+}
+.trivia-home-btn:hover {
+  background: #00c3ff;
+  color: #fff;
+}
+
+.trivia-score {
+  color: #00c3ff;
+  font-weight: 900;
+  font-size: 1.5rem;
+  text-shadow: 0 1px 6px #00c3ff44;
+}
+
+/* Sports animation: animated bouncing ball */
+.trivia-sports-ball {
+  position: absolute;
+  right: 32px;
+  top: 18px;
+  width: 48px;
+  height: 48px;
+  z-index: 3;
+  animation: ball-bounce 1.6s infinite cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes ball-bounce {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-18px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-8px); }
+  80% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}

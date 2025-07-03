@@ -1,0 +1,13 @@
+# Render deployment configuration for Node.js backend
+services:
+  - type: web
+    name: gameon-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    rootDir: backend

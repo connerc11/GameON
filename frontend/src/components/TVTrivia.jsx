@@ -97,9 +97,9 @@ export default function TVTrivia() {
   // After finishing the game, show a button to go to the leaderboard page
   if (showResults) {
     return (
-      <div className="tvtrivia-container">
+      <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
         <button className="tvtrivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
-        <div className="tvtrivia-card">
+        <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
           <h1 className="tvtrivia-title">TV Trivia</h1>
           <h2>Your Score: {score}</h2>
           <button
@@ -118,9 +118,9 @@ export default function TVTrivia() {
   const answers = [...q.incorrect_answers, q.correct_answer].sort();
 
   return (
-    <div className="tvtrivia-container">
+    <div style={{ background: '#18181b', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
       <button className="tvtrivia-home-btn" onClick={() => navigate('/')}>🏠 Home</button>
-      <div className="tvtrivia-card">
+      <div style={{ maxWidth: 540, margin: '40px auto', background: '#23232a', borderRadius: 16, boxShadow: '0 2px 16px #0008', color: '#fff', border: '1px solid #333', padding: 28 }}>
         <h1 className="tvtrivia-title">TV Trivia</h1>
         <h2 className="tvtrivia-progress">Question {current + 1} of {questions.length}</h2>
         <div className="tvtrivia-question" dangerouslySetInnerHTML={{ __html: q.question }} />
