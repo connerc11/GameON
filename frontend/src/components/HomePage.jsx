@@ -7,6 +7,7 @@ const rankedGames = [
   { name: 'SportsTrivia Game', path: '/trivia-game' },
   { name: 'TV Trivia', path: '/tvtrivia' },
   { name: 'Fun Fight', path: '/funfight' },
+  { name: 'Number Sequence', path: '/numbersequence' },
 ];
 const nonRankedGames = [
   { name: 'Math Multipliers', path: '/math-multipliers' },

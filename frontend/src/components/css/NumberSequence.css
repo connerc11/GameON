@@ -1,0 +1,292 @@
+/* Number Sequence Challenge Styles */
+.numberseq-container {
+  min-height: 100vh;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.numberseq-card {
+  background: #18181b;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #0008;
+  color: #fff;
+  border: 1.5px solid #fbbf24;
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+  min-height: 400px;
+}
+
+.numberseq-title {
+  color: #fbbf24;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0 0 20px 0;
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+
+.numberseq-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.numberseq-score {
+  color: #fbbf24;
+}
+
+.numberseq-lives {
+  color: #ff6b6b;
+}
+
+.numberseq-timer {
+  color: #ffe066;
+}
+
+.numberseq-question {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #2a2a2a;
+  border-radius: 10px;
+  border: 1px solid #fbbf24;
+}
+
+.numberseq-sequence {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 16px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.numberseq-input {
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 2px solid #fbbf24;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  width: 120px;
+  margin-right: 12px;
+}
+
+.numberseq-input:focus {
+  outline: none;
+  box-shadow: 0 0 8px #fbbf24aa;
+}
+
+.numberseq-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  background: #fbbf24;
+  color: #18181b;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.numberseq-btn:hover {
+  background: #e6ac1f;
+  transform: translateY(-1px);
+}
+
+.numberseq-btn:disabled {
+  background: #666;
+  color: #aaa;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.numberseq-hint-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.numberseq-hint-btn:hover {
+  background: #444;
+}
+
+.numberseq-hint-btn.active {
+  background: #666;
+}
+
+.numberseq-hint {
+  margin-top: 8px;
+  color: #ffe066;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.numberseq-feedback {
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.numberseq-feedback.correct {
+  background: #27ae60;
+}
+
+.numberseq-feedback.incorrect {
+  background: #e74c3c;
+}
+
+.numberseq-game-over {
+  text-align: center;
+}
+
+.numberseq-final-score {
+  font-size: 1.3rem;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+.numberseq-final-score span {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.numberseq-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.numberseq-btn-secondary {
+  background: #42b983;
+  color: #fff;
+}
+
+.numberseq-btn-secondary:hover {
+  background: #369870;
+}
+
+.numberseq-instructions {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #2a2a2a;
+  border-radius: 10px;
+  border: 1px solid #fbbf24;
+}
+
+.numberseq-instructions h3 {
+  color: #fbbf24;
+  margin-bottom: 12px;
+}
+
+.numberseq-instructions ul {
+  text-align: left;
+  color: #fff;
+  line-height: 1.6;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.numberseq-instructions li {
+  margin-bottom: 4px;
+}
+
+.numberseq-difficulty {
+  color: #ffe066;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.numberseq-guest-mode {
+  width: 100%;
+  border-radius: 12px;
+  background: #ffe066;
+  color: #18181b;
+  font-weight: 600;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 1rem;
+  border: 1.5px solid #fbbf24;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .numberseq-card {
+    margin: 20px;
+    padding: 16px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  .numberseq-title {
+    font-size: 1.5rem;
+  }
+  
+  .numberseq-stats {
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+  
+  .numberseq-sequence {
+    font-size: 1.2rem;
+  }
+  
+  .numberseq-input {
+    width: 100px;
+    margin-right: 8px;
+  }
+  
+  .numberseq-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .numberseq-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Animation for number changes */
+.numberseq-sequence {
+  animation: numberPulse 0.3s ease-in-out;
+}
+
+@keyframes numberPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Feedback animations */
+.numberseq-feedback {
+  animation: feedbackSlide 0.3s ease-out;
+}
+
+@keyframes feedbackSlide {
+  0% { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
