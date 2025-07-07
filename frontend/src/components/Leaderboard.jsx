@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getToken } from '../utils/auth'; 
-
+import { apiFetch } from '../utils/api';
 
 export default function Leaderboard({ game, limit = 10 }) {
   const [scores, setScores] = useState([]);
@@ -16,7 +16,7 @@ export default function Leaderboard({ game, limit = 10 }) {
         return;
       }
       try {
-        const res = await fetch(`http://localhost:5000/api/scores/${game}`, {
+        const res = await apiFetch(`/api/scores/${game}`, {
           headers: {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'

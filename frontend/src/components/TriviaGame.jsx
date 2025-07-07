@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Leaderboard from './Leaderboard';
 import { getToken, getUsername } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 import './trivia.css';
 import './landing-basketball.css';
 
@@ -26,7 +27,7 @@ export default function TriviaGame() {
   }, [navigate]);
 
   useEffect(() => {
-    fetch('/api/trivia')
+    apiFetch('/api/trivia')
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data.results || []);
@@ -62,7 +63,7 @@ export default function TriviaGame() {
 
   useEffect(() => {
     if (showResults && isSignedIn && !nonRankedMode && getUsername()) {
-      fetch('/api/scores', {
+      apiFetch('/api/scores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

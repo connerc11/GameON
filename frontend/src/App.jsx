@@ -62,6 +62,22 @@ export default function App() {
         <Route path="/maze-escape" element={<MazeEscape />} />
         {/* ...other routes... */}
       </Routes>
+      <footer style={{
+        position: 'fixed',
+        left: 0,
+        bottom: 0,
+        width: '100vw',
+        background: 'rgba(0,0,0,0.95)',
+        color: '#FFD600',
+        textAlign: 'center',
+        padding: '12px 0',
+        fontWeight: 600,
+        fontSize: '1.1rem',
+        letterSpacing: '1px',
+        zIndex: 1000
+      }}>
+        made by conner :)
+      </footer>
     </Router>
   );
 }

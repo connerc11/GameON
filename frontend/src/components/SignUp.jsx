@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { saveAuth } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 export default function SignUp({ onSignUp, onClose }) {
   const [username, setUsername] = useState('');
@@ -13,7 +14,7 @@ export default function SignUp({ onSignUp, onClose }) {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signup', {
+      const res = await apiFetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -24,7 +25,7 @@ export default function SignUp({ onSignUp, onClose }) {
         return;
       }
       // Auto-login after sign up
-      const loginRes = await fetch('http://localhost:5000/api/auth/signin', {
+      const loginRes = await apiFetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

@@ -3,6 +3,7 @@ import './css/FunFight.css';
 import './landing-basketball.css'; // Corrected import path
 import { useNavigate } from 'react-router-dom';
 import { getToken } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 const OPPONENT_NAMES = [
   'The Crusher', 'Shadow Ninja', 'Thunderbolt', 'Iron Fist', 'Blaze', 'Venom', 'The Phantom', 'Wildcat',
@@ -87,7 +88,7 @@ export default function FunFight() {
   // Submit score when game ends
   async function submitScore(game, score, token) {
     try {
-      const res = await fetch('http://localhost:5000/api/scores', {
+      const res = await apiFetch('/api/scores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

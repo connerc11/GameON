@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './css/NumberSequence.css';
 import './landing-basketball.css';
 import { getToken, getUsername } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 // Generate different types of sequences
 const generateSequence = (difficulty) => {
@@ -96,7 +97,7 @@ export default function NumberSequence() {
   // Submit score when game ends
   async function submitScore(game, score, token) {
     try {
-      const res = await fetch('http://localhost:5000/api/scores', {
+      const res = await apiFetch('/api/scores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

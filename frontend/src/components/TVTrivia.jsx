@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './TVTrivia.css';
 import Leaderboard from './Leaderboard';
 import { getToken, getUsername } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 export default function TVTrivia() {
   const [questions, setQuestions] = useState([]);
@@ -26,7 +27,7 @@ export default function TVTrivia() {
   }, [navigate]);
 
   useEffect(() => {
-    fetch('/api/tvtrivia')
+    apiFetch('/api/tvtrivia')
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data.results || []);
@@ -64,7 +65,7 @@ export default function TVTrivia() {
   // Submit score and update leaderboard
   async function submitScore(game, score, token) {
     try {
-      const res = await fetch('http://localhost:5000/api/scores', {
+      const res = await apiFetch('/api/scores', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

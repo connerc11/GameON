@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { saveAuth } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 export default function SignInModal({ onClose, setSignInStatus, modalStyle }) {
   const [username, setUsername] = useState('');
@@ -16,7 +17,7 @@ export default function SignInModal({ onClose, setSignInStatus, modalStyle }) {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5000/api/auth/signin', {
+      const res = await apiFetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

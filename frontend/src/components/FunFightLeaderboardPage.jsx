@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Leaderboard from './Leaderboard';
 import './landing-basketball.css';
 import { getToken, getUsername } from '../utils/auth';
+import { apiFetch } from '../utils/api';
 
 function InstructionsModal({ open, onClose }) {
   if (!open) return null;
@@ -42,7 +43,7 @@ export default function FunFightLeaderboardPage() {
         return;
       }
       try {
-        const res = await fetch(`http://localhost:5000/api/scores/funfight/userstats`, {
+        const res = await apiFetch('/api/scores/funfight/userstats', {
           headers: { 'Authorization': 'Bearer ' + token }
         });
         if (res.ok) {
