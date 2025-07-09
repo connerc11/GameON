@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/MathMultipliers.css';
+import { getToken } from '../utils/auth';
 
 function InstructionsModal({ open, onClose }) {
   if (!open) return null;
@@ -35,6 +36,8 @@ export default function MathMultipliers() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [started, setStarted] = useState(false);
   const inputRef = useRef();
+
+  const isSignedIn = !!getToken();
 
   useEffect(() => {
     if (started && timeLeft > 0 && !gameOver) {
@@ -150,12 +153,14 @@ export default function MathMultipliers() {
           >
             Back
           </button>
-          <button
-            className="mathmult-btn mathmult-btn-yellow"
-            onClick={() => navigate('/signin')}
-          >
-            Sign In
-          </button>
+          {!isSignedIn && (
+            <button
+              className="mathmult-btn mathmult-btn-yellow"
+              onClick={() => navigate('/signin')}
+            >
+              Sign In
+            </button>
+          )}
         </div>
       </div>
       <InstructionsModal open={showInstructions} onClose={() => setShowInstructions(false)} />

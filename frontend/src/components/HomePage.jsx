@@ -54,29 +54,10 @@ export default function HomePage() {
 
   return (
     <div style={{ background: '#111', minHeight: '100vh', minWidth: '100vw', color: '#fff', position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', overflow: 'auto' }}>
-      {/* Sign Out button, top left */}
-      <div style={{ position: 'fixed', top: 32, left: 32, zIndex: 10 }}>
-        <button
-          style={{ padding: '10px 24px', borderRadius: 10, background: '#fbbf24', color: '#18181b', fontWeight: 700, fontSize: 18, border: 'none', boxShadow: '0 2px 8px #fbbf2422', cursor: 'pointer' }}
-          onClick={() => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('username');
-            localStorage.removeItem('loginTimestamp');
-            sessionStorage.removeItem('token');
-            sessionStorage.removeItem('username');
-            sessionStorage.removeItem('loginTimestamp');
-            sessionStorage.removeItem('auth');
-            sessionStorage.removeItem('nonRankedMode');
-            navigate('/');
-          }}
-        >
-          Sign Out
-        </button>
-      </div>
       <div
         style={{
           maxWidth: 500,
-          margin: '80px auto 40px auto', // Move down to avoid overlap with top button
+          margin: '40px auto 40px auto',
           background: '#18181b',
           borderRadius: 16,
           boxShadow: '0 2px 16px #0008',

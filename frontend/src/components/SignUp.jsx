@@ -6,6 +6,7 @@ export default function SignUp({ onSignUp, onClose }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +33,13 @@ export default function SignUp({ onSignUp, onClose }) {
       });
       const loginData = await loginRes.json();
       if (loginRes.ok && loginData.token) {
+        setSuccess(true);
+        setError('');
         saveAuth(loginData);
-        window.location.href = '/';
+        // Show success message for 2 seconds before redirecting
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
       } else {
         setError('Sign up succeeded but login failed.');
       }
@@ -92,6 +98,7 @@ export default function SignUp({ onSignUp, onClose }) {
             style={{ width: '100%', marginBottom: 12, padding: 8, fontSize: 16, borderRadius: 8, border: '1px solid #444', background: '#333', color: '#fff' }}
           />
           {error && <div style={{ color: '#e74c3c', marginBottom: 10 }}>{error}</div>}
+          {success && <div style={{ color: '#42b983', marginBottom: 10, fontWeight: 'bold' }}>Success on creating an account! Redirecting...</div>}
           <button type="submit" style={{
             width: '100%', padding: 10, background: '#42b983', color: '#fff', border: 'none', borderRadius: 6, fontSize: 18, marginBottom: 10
           }}>Sign Up</button>
